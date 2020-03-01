@@ -1,24 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>{{ user.name }}'s simple list</title>
-    <link rel="icon" href="{{ url_for('static', filename='bear-32.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
-</head>
-<body>
-    <h2><img alt="Avatar" class="avatar" src="{{ url_for('static', filename='images/smile.png') }}">
-    {{ user.name }}'s simple list</h2>
+{% extends 'base.html' %}
 
-    <p>{{ movies|length }} Titles</p>
-    <ul class="movie-list">
-        {% for movie in movies %} 
-        <li>{{ movie.title }} - {{ movie.year }}</li>  {# 等同于 movie['title'] #}
-        {% endfor %} 
-    </ul>
-    <img alt="Walking" class="walking" src="{{ url_for('static', filename='images/walking.gif') }}">
-    <footer>
-        <small>little bear</small>
-    </footer>
-</body>
-</html>
+{% block content %}
+<p>{{ movies|length }} Titles</p>
+<ul class="movie-list">
+    {% for movie in movies %}
+    <li>{{ movie.title }} - {{ movie.year }}
+        <span class="float-right">
+            <a class="imdb" href="https://www.imdb.com/find?q={{ movie.title }}" target="_blank" title="Find this movie on IMDb">IMDb</a>
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+<img alt="walking" class="walking" src="{{ url_for('static', filename='images/walking.gif') }}" title="a~ru~ku~">
+{% endblock %}
